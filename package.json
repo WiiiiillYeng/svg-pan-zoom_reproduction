@@ -5,6 +5,9 @@
   "description": "Minimal verification environment for svg-pan-zoom server.js path traversal.",
   "scripts": {
     "verify": "node verify.js",
-    "server": "node -r ./util-puts-shim.js ../../node_modules/svg-pan-zoom/server.js 3139"
+    "server": "node start-server.js"
+  },
+  "dependencies": {
+    "svg-pan-zoom": "3.6.2"
   }
 }

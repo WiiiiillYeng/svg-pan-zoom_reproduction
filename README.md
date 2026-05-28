@@ -1,14 +1,8 @@
 # svg-pan-zoom server.js Path Traversal Verification
 
-This directory is a minimal verification environment for the `server.js` shipped by an installed `svg-pan-zoom` npm package.
+This directory is a minimal verification environment for the `server.js` shipped by the `svg-pan-zoom` npm package.
 
-The verification starts the real package server:
-
-```text
-../../node_modules/svg-pan-zoom/server.js
-```
-
-It does not reimplement the vulnerable logic.
+The verification starts the real package server discovered through Node.js module resolution. It does not assume a fixed `node_modules` path and does not reimplement the vulnerable logic.
 
 ## Files
 
@@ -16,6 +10,7 @@ It does not reimplement the vulnerable logic.
 verify_9_svg-pan-zoom/
   package.json
   verify.js
+  start-server.js
   util-puts-shim.js
   outside-root/
     verify_9_parent_secret.txt
@@ -33,18 +28,27 @@ verify_9_svg-pan-zoom/
 From this directory:
 
 ```bash
+npm install
 npm run verify
 ```
 
-The script starts:
+`npm install` installs the vulnerable package version declared in `package.json`. If `svg-pan-zoom` is already available from a parent workspace, Node.js can also resolve that installation.
 
-```bash
-node -r ./util-puts-shim.js ../../node_modules/svg-pan-zoom/server.js 3139
-```
-
-with the current server working directory set to `verify_9_svg-pan-zoom/server-root`.
+The script starts the real `svg-pan-zoom/server.js` with the current server working directory set to `verify_9_svg-pan-zoom/server-root`.
 
 The shim only restores the removed legacy `util.puts` logging function for modern Node.js versions. The package's `server.js` and its path handling logic are still the real installed package code.
+
+To start the vulnerable server manually:
+
+```bash
+npm run server
+```
+
+The manual server uses port `3139` by default. You can pass another port:
+
+```bash
+npm run server -- 4000
+```
 
 ## Expected Normal Case
 
