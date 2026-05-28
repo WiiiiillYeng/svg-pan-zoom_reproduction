@@ -1,0 +1,10 @@
+{
+  "name": "verify-9-svg-pan-zoom-traversal",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Minimal verification environment for svg-pan-zoom server.js path traversal.",
+  "scripts": {
+    "verify": "node verify.js",
+    "server": "node -r ./util-puts-shim.js ../../node_modules/svg-pan-zoom/server.js 3139"
+  }
+}
