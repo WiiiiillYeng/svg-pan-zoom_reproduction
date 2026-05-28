@@ -1,0 +1,3 @@
+NORMAL_STATIC_FILE_FROM_VERIFY_ROOT
+
+This file is inside the server working directory and should be readable.
